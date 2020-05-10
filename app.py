@@ -1,6 +1,6 @@
 from flask import Flask, render_template    # сперва подключим модуль
 from flask_debugtoolbar import DebugToolbarExtension
-
+from data import tours, departures
 
 app = Flask(__name__)      # объявим экземпляр фласка
 
@@ -13,7 +13,7 @@ toolbar = DebugToolbarExtension(app)
 
 @app.route('/')
 def main():
-    return render_template('bootstrap.html')
+    return render_template('index.html')
 
 @app.route('/departures/<departure>')
 def departure(departure):
@@ -21,7 +21,10 @@ def departure(departure):
 
 @app.route('/tours/<id>')
 def tour(id):
-    return render_template('tour.html')
+    id = int(id)
+    departure = departures[tours[id]['departure']]
+    stars=int(tours[id]['stars'])
+    return render_template('tour.html', tour=tours[id], departure=departure, stars=stars)
 
 
 
