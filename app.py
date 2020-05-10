@@ -1,16 +1,9 @@
-from flask import Flask, render_template    # сперва подключим модуль
-from flask_debugtoolbar import DebugToolbarExtension
+from flask import Flask, render_template
 import data
 from random import randint
 
-app = Flask(__name__)      # объявим экземпляр фласка
+app = Flask(__name__)
 
-app.debug = True
-
-# set a 'SECRET_KEY' to enable the Flask session cookies
-app.config['SECRET_KEY'] = '183-618-819'
-
-toolbar = DebugToolbarExtension(app)
 
 
 @app.route('/')
@@ -41,5 +34,6 @@ def tour(id):
     return render_template('tour.html', tour=tour, departure=departure, title=data.title, departures=data.departures)
 
 
+if __name__ == '__main__':
+    app.run(debug=True)
 
-app.run('0.0.0.0',8000, debug=True)    # запустим сервер на 8000 порту!
